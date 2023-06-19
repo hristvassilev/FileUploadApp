@@ -3,6 +3,9 @@ using System.Xml;
 
 namespace FileUploadAPI.Utils
 {
+	/// <summary>
+	/// Implements file related actions.
+	/// </summary>
 	public class FileManager : IFileManager
 	{
 		private readonly ILogger<FileManager> _logger;
@@ -18,6 +21,12 @@ namespace FileUploadAPI.Utils
 			_logger = logger;
 		}
 
+		/// <summary>
+		/// Creates and save a new json file async.
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <param name="jsonResult"></param>
+		/// <returns></returns>
 		public async Task<string> SaveFileAsync(string fileName, string jsonResult)
 		{
 			try
@@ -42,8 +51,18 @@ namespace FileUploadAPI.Utils
 			return fileName;
 		}
 
+		/// <summary>
+		/// Validates if file format is XML (required).
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <returns></returns>
 		public bool ValidateXmlFile(string fileName) =>  Path.GetExtension(fileName).ToLowerInvariant() == XmlExtension;
 
+		/// <summary>
+		/// Converts XML file to Json string.
+		/// </summary>
+		/// <param name="file"></param>
+		/// <returns></returns>
 		public string ConvertXmlFileToJson(IFormFile file)
 		{
 			var jsonResult = string.Empty;

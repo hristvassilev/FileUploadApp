@@ -3,24 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FileUploadAPI.Controllers
 {
+	/// <summary>
+	/// Abstract class that inherited ControllerBase.
+	/// </summary>
     public abstract class BaseApiController : ControllerBase
 	{
-		private ILogger _logger;
 		private IErrorResult _errorResult;
-
-		protected ILogger Logger 
-		{
-			get
-			{
-				if (_logger == null)
-				{
-					ILoggerFactory loggerFactory = HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
-					_logger = loggerFactory.CreateLogger(GetType());
-				}
-
-				return _logger;
-			}
-		}
 
 		protected IErrorResult ErrorResult
 		{
@@ -34,6 +22,5 @@ namespace FileUploadAPI.Controllers
 				return _errorResult;
 			}
 		}
-
 	}
 }

@@ -10,7 +10,6 @@ namespace FileUploadAPI.ErrorHandling
         BadRequestObjectResult BadRequest(ModelStateDictionary modelState, string message = null);
         NotFoundObjectResult NotFound(string message);
         ObjectResult InternalServerError(string message);
-        ConflictObjectResult Conflict(string message);
         ObjectResult CustomError(HttpStatusCode statusCode, string title, string message);
     }
 }
