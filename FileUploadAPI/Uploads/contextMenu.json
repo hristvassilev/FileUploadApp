@@ -1,0 +1,153 @@
+{
+  "?xml": {
+    "@version": "1.0",
+    "@encoding": "UTF-8"
+  }/*
+By modifying this file, you can customize your context menu popuped as right clicking on the edit zone.
+It may be more convinient to access to your frequent used commands via context menu than via the top menu.
+
+Please check "How to Customize the Context Menu" on:
+https://npp-user-manual.org/docs/config-files/#the-context-menu-contextmenu-xml
+*/,
+  "NotepadPlus": {
+    "ScintillaContextMenu": {
+      "#comment": [],
+      "Item": [
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Cut"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Copy"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Paste"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Delete"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Select all"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Begin/End Select"
+        },
+        {
+          "@id": "0"
+        },
+        {
+          "@FolderName": "Style token",
+          "@id": "43022"
+        },
+        {
+          "@FolderName": "Style token",
+          "@id": "43024"
+        },
+        {
+          "@FolderName": "Style token",
+          "@id": "43026"
+        },
+        {
+          "@FolderName": "Style token",
+          "@id": "43028"
+        },
+        {
+          "@FolderName": "Style token",
+          "@id": "43030"
+        },
+        {
+          "@FolderName": "Remove style",
+          "@id": "43023"
+        },
+        {
+          "@FolderName": "Remove style",
+          "@id": "43025"
+        },
+        {
+          "@FolderName": "Remove style",
+          "@id": "43027"
+        },
+        {
+          "@FolderName": "Remove style",
+          "@id": "43029"
+        },
+        {
+          "@FolderName": "Remove style",
+          "@id": "43031"
+        },
+        {
+          "@FolderName": "Remove style",
+          "@id": "43032"
+        },
+        {
+          "@id": "0"
+        },
+        {
+          "@FolderName": "Plugin commands",
+          "@PluginEntryName": "MIME Tools",
+          "@PluginCommandItemName": "Base64 Encode"
+        },
+        {
+          "@FolderName": "Plugin commands",
+          "@PluginEntryName": "MIME Tools",
+          "@PluginCommandItemName": "Base64 Decode"
+        },
+        {
+          "@FolderName": "Plugin commands",
+          "@PluginEntryName": "NppExport",
+          "@PluginCommandItemName": "Copy all formats to clipboard",
+          "@ItemNameAs": "Copy Text with Syntax Highlighting"
+        },
+        {
+          "@id": "0"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "UPPERCASE"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "lowercase"
+        },
+        {
+          "@id": "0"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Open File"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Search on Internet"
+        },
+        {
+          "@id": "0"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Toggle Single Line Comment"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Block Comment"
+        },
+        {
+          "@MenuEntryName": "Edit",
+          "@MenuItemName": "Block Uncomment"
+        },
+        {
+          "@id": "0"
+        },
+        {
+          "@MenuEntryName": "View",
+          "@MenuItemName": "Hide lines"
+        }
+      ]
+    }
+  }
+}
