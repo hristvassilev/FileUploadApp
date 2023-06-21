@@ -1,4 +1,5 @@
-﻿using FileUploadAPI.Utils;
+﻿using FileUploadAPI.ErrorHandling;
+using FileUploadAPI.Utils;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -8,9 +9,10 @@ namespace FileUploadAPI.Controllers
 {
 	[Route("api")]
 	[ApiController]
-	public class FileUploadController : BaseApiController
+	public class FileUploadController : ControllerBase
 	{
 		private readonly IFileManager _fileManager;
+		private readonly IErrorResult _errorResult;
 
 		private const string InvalidStateMessage = "Invalid state.";
 		private const string FileRequiredMessage = "File is required.";
@@ -20,9 +22,10 @@ namespace FileUploadAPI.Controllers
 		private const string FileNotCreatedMessage = "An error occured. File not created.";
 		private const string SaveFileErrorTitle = "Save file error";
 
-		public FileUploadController(IFileManager fileManager)
+		public FileUploadController(IFileManager fileManager, IErrorResult errorResult)
 		{
 			_fileManager = fileManager;
+			_errorResult = errorResult;
 		}
 
 		/// <summary>
@@ -35,51 +38,56 @@ namespace FileUploadAPI.Controllers
 		public async Task<IActionResult> UploadFileAsync(IFormFile file)
 		{
 			if (!ModelState.IsValid)
-				return ErrorResult.BadRequest(ModelState, InvalidStateMessage);
+				return _errorResult.BadRequest(ModelState, InvalidStateMessage);
 
 			if (file == null)
-				return ErrorResult.BadRequest(FileRequiredMessage);
+				return _errorResult.BadRequest(FileRequiredMessage);
 
 			if (!_fileManager.ValidateXmlFile(file.FileName))
-				return ErrorResult.BadRequest(InvalidFileFormatMessage);
+				return _errorResult.BadRequest(InvalidFileFormatMessage);
 
 			var jsonResult = _fileManager.ConvertXmlFileToJson(file);
 			
 			if (string.IsNullOrEmpty(jsonResult))
-				return ErrorResult.CustomError(HttpStatusCode.BadRequest, ConvertFileErrorTitle, ConvertFileErrorMessage);
+				return _errorResult.CustomError(HttpStatusCode.BadRequest, ConvertFileErrorTitle, ConvertFileErrorMessage);
 
 			var result = await _fileManager.SaveFileAsync(file.FileName, jsonResult);
 			
 			if (string.IsNullOrEmpty(result))
-				return ErrorResult.CustomError(HttpStatusCode.BadRequest, SaveFileErrorTitle, FileNotCreatedMessage);
+				return _errorResult.CustomError(HttpStatusCode.BadRequest, SaveFileErrorTitle, FileNotCreatedMessage);
 
 			return Ok(result);
 		}
 
+		/// <summary>
+		/// Uploads multiple files
+		/// </summary>
+		/// <param name="files"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("uploads")]
 		public async Task<IActionResult> UploadMultipleFilesAsync(IList<IFormFile> files)
 		{
 			if (!ModelState.IsValid)
-				return ErrorResult.BadRequest(ModelState, InvalidStateMessage);
+				return _errorResult.BadRequest(ModelState, InvalidStateMessage);
 		
 			if (files.Count == 0)
-				return ErrorResult.BadRequest(FileRequiredMessage);
+				return _errorResult.BadRequest(FileRequiredMessage);
 			
 			foreach (var file in files)
 			{
 				if (!_fileManager.ValidateXmlFile(file.FileName))
-					return ErrorResult.BadRequest(InvalidFileFormatMessage);
+					return _errorResult.BadRequest(InvalidFileFormatMessage);
 
 				var jsonResult = _fileManager.ConvertXmlFileToJson(file);
 
 				if (string.IsNullOrEmpty(jsonResult))
-					return ErrorResult.CustomError(HttpStatusCode.BadRequest, ConvertFileErrorTitle, ConvertFileErrorMessage);
+					return _errorResult.CustomError(HttpStatusCode.BadRequest, ConvertFileErrorTitle, ConvertFileErrorMessage);
 
 				var result = await _fileManager.SaveFileAsync(file.FileName, jsonResult);
 
 				if (string.IsNullOrEmpty(result))
-					return ErrorResult.CustomError(HttpStatusCode.BadRequest, SaveFileErrorTitle, FileNotCreatedMessage);
+					return _errorResult.CustomError(HttpStatusCode.BadRequest, SaveFileErrorTitle, FileNotCreatedMessage);
 			}
 
 			return Ok();
